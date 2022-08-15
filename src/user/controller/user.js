@@ -13,12 +13,15 @@ exports.createUser = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
+    const randomAccountnumber = Math.floor(Math.random() * 10000000000);
+
     await db("users")
       .insert({
         name,
         mobile_number,
         work_email,
         business_name,
+        account_number: randomAccountnumber,
         password: hashedPassword,
       })
       .then(async (user) => {

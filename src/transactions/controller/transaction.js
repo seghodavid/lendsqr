@@ -42,7 +42,29 @@ exports.createTransactions = async(req, res) => {
                  balance: newBalance,
                });
           } else if (userTransaction[0].transactionTypes === 'transfer') {
+            const account_number = req.body.account_number;
+
             const newBalance = wallet[0].balance - userTransaction[0].amount;
+            const user =  await db('users')
+            .select({
+              account_number: 'account_number', 
+              name: 'name', 
+              userId: 'userId'
+            })
+            .where({account_number: account_number})
+
+            const creditedWallet = await db("wallets").where({
+              user: user[0].userId,
+            });
+
+            //UPDATE CREDITED USER BALANCE
+            await db("wallets")
+              .where({ user: user[0].userId })
+              .update({
+                balance: userTransaction[0].amount + creditedWallet[0].balance,
+              });
+            
+            // UPDATE DEBITED USER BALANCE
             await db("wallets")
               .where({ walletId: userTransaction[0].wallet })
               .update({

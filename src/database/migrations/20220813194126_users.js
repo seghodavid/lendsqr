@@ -12,6 +12,7 @@ exports.up = function(knex) {
         table.string('work_email').unique().notNullable()
         table.string('business_name').notNullable()
         table.string('password').notNullable()
+        table.string('account_number').unique()
         table.timestamp("createdAt").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
         table.timestamp("updatedAt").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
     })
@@ -40,7 +41,7 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
   return knex.schema
-  .dropTable("users")
-  .dropTable('wallets')
-  .dropTable('transactions')
+    .dropTable("transactions")
+    .dropTable("wallets")
+    .dropTable("users");
 };
