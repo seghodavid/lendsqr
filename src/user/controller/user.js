@@ -85,7 +85,8 @@ exports.getAllUsers = async (req, res) => {
         userId: 'userId',
         work_email: 'work_email',
         business_name: 'business_name',
-        name: 'name'
+        name: 'name',
+        account_number: 'account_number'
     })
     .then((user) => {
         if (user.length > 0) {
@@ -111,29 +112,30 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getOneUser = async (req, res) => {
     try {
-          await db('users')
-    .select({
-        userId: 'userId',
-        work_email: 'work_email',
-        business_name: 'business_name',
-        name: 'name'
-    })
-    .where ({
-        userId: req.params.id
-    })
-    .then((user) => {
-        if (user[0]) {
-          res.status(200).json({
-            status: true,
-            data: user[0],
-          });
-        } else {
-          res.status(404).json({
-            status: false,
-            message: "User not found",
-          });
-        }
-    })
+          await db("users")
+            .select({
+              userId: "userId",
+              work_email: "work_email",
+              business_name: "business_name",
+              name: "name",
+              account_number: "account_number",
+            })
+            .where({
+              userId: req.params.id,
+            })
+            .then((user) => {
+              if (user[0]) {
+                res.status(200).json({
+                  status: true,
+                  data: user[0],
+                });
+              } else {
+                res.status(404).json({
+                  status: false,
+                  message: "User not found",
+                });
+              }
+            });
     } catch(error) {
          console.error(error);
          return res.status(500).json({
