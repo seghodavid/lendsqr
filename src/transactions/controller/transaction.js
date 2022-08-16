@@ -6,6 +6,9 @@ exports.createTransactions = async(req, res) => {
     const {
         amount, transactionTypes
     } = req.body
+
+  //  joi.assert(amount, joi.number().integer().min(10));
+
     //find the wallet
     const wallet = await db('wallets').where({user: user})
 
