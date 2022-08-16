@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start:dev": "nodemon index.js",
     "migrate": "npx knex migrate:latest --knexfile src/database/knexfile.js",
     "migrate:down": "npx knex migrate:rollback --knexfile src/database/knexfile.js"
   },
