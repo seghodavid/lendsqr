@@ -1,4 +1,7 @@
 // Update with your config settings.
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
@@ -9,9 +12,9 @@ module.exports = {
     connection: {
       host: "127.0.0.1",
       port: 3306,
-      user: "root",
-      password: "Television19",
-      database: "lendsqr_assessment",
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
     },
     pool: {
       min: 2,
